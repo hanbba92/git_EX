@@ -43,28 +43,11 @@ def main():
     input_file = sys.argv[1]
     output_task = sys.argv[2]
     base = sys.argv[3]
-    # input_file = 'aiw_task_hr_input_20220207.nc'
-    # output_task = '3'
-    # base = 1.2
 
     common.init('aiw-task') #타스크명 수정필요
     app = Application(input_file, output_task, base)
     app.run()
     pass
-
-    '''
-    #test code
-    ncfile_path = 'aiw_task_hr_input_20220207.nc'
-    ncfile = Dataset(ncfile_path)
-    print(ncfile)
-    print(ncfile.dimensions)
-    print(ncfile.groups)
-    print(ncfile.groups['INPUTDATA']['rh_1D5maboveground']['h000'].dimensions[0])
-    INPUTDATA/tmp_1D5maboveground/h000
-    'INPUTDATA/rh_1D5maboveground/values'
-    print(ncfile.groups['INPUTDATA']['rh_1D5maboveground'])
-    '''
-
 
 if __name__ == '__main__':
     main()
