@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 
 class WindDirectionCalculator(object):
@@ -15,4 +16,4 @@ class WindDirectionCalculator(object):
             for (u, v) in zip(u_1d, v_1d):
                 wind_direction_list_1d.append(self.get_wind_direction(u, v))
             wind_direction_list.append(wind_direction_list_1d)
-        return wind_direction_list
+        return np.array(wind_direction_list)
