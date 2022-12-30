@@ -32,17 +32,17 @@ class FileGenerateTest(unittest.TestCase):
         ds = Dataset('C:/Users/p/Desktop/aiw-task-hr/netcdf/aiw-task-hr-17-nc/aiw_task_hr_input_20220207.nc', 'w', format="NETCDF4")
 
         data = self.read('C:/Users/p/Desktop/aiw-task-hr/gdaps/g128_v070_ergl_pres_h000.2022020700.nc')
-        lats = np.array(data['latitude'])[1066:1600]
-        lons = np.array(data['longitude'])[750:1050]
+        lats = np.array(data['latitude'])[1100:1500]
+        lons = np.array(data['longitude'])[700:1100]
 
-        ds.createDimension('latitude', np.array(data[titles[0]])[0][1066:1600, 750:1050].shape[0])
-        ds.createDimension('longitude', np.array(data[titles[0]])[0][1066:1600, 750:1050].shape[1])
+        ds.createDimension('latitude', np.array(data[titles[0]])[0][1100:1500, 700:1100].shape[0])
+        ds.createDimension('longitude', np.array(data[titles[0]])[0][1100:1500, 700:1100].shape[1])
         ds.createVariable('INPUTDATA/latitude', 'f8', 'latitude')
         ds.createVariable('INPUTDATA/longitude', 'f8', 'longitude')
         ds['INPUTDATA/latitude'][:] = lats
         ds['INPUTDATA/longitude'][:] = lons
         for title in titles:
-            values = np.array(data[title])[0][1066:1600, 750:1050]
+            values = np.array(data[title])[0][1100:1500, 700:1100]
 
             ds.createVariable('INPUTDATA/'+title+'/h000', float,
                               ('latitude', 'longitude'))
