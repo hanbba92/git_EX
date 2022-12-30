@@ -29,7 +29,7 @@ class Application(object):
 
         u_925, v_925 = data['u_925'], data['v_925']
 
-        dew_point_list_925 = wind_direction_cal.get_wind_direction_result_list(v_925, u_925)
+        dew_point_list_925 = wind_direction_cal.get_wind_direction_result_list(u_925, v_925)
         dew_point_list_925 = np.array(dew_point_list_925)
 
         result = np.where(dew_point_list_925 <= self.base2, dew_point_list_925, 0)
