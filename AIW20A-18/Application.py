@@ -5,7 +5,7 @@ import numpy as np
 from test.file_generate_test import FileGenerateTest
 import aiw_task_cm.common.initiator as common
 from file.file_manager import FileManager
-from service.SouthwestWindCaculator import SouthwestWindCalculator
+from service.SouthwestWindCalculator import SouthwestWindCalculator
 
 #southewst_wind_speed
 class Application(object):

@@ -10,6 +10,12 @@ class SouthwestWindCalculator(object):
         return sw_wspd
 
     def get_sw_wind_speed_result(self, u_wind, v_wind):
+        '''
+            남서류 풍속 계산
+            self: 현재 인스턴스 객체
+            u_wind: 동서바람성분 (m/s)
+            v_wind: 남북바람성분 (m/s)
+        '''
         sw_wspd_result = []
         for u_wind_1d, v_wind_1d in zip(u_wind, v_wind):
             sw_wspd_result_1d = []
