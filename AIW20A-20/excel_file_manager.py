@@ -46,3 +46,9 @@ class ExcelFileManager:
 
     def backslash_to_slash(self, path):
         return path.replace('\\', '/')
+
+    def directory_empty(self, directory_path):
+        file_path_slash = self.backslash_to_slash(directory_path)
+        file_name_list = os.listdir(file_path_slash)
+        for file_name in file_name_list:
+            os.remove(file_path_slash + '/' + file_name)

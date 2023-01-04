@@ -21,7 +21,7 @@ class Application:
         # 사이트 크롤링 방식
         # data = self.crawling_data_method(weather_type, start_day, end_day)
 
-        header = ['특보 유형', '발표 시각', '지역', '발효 시각', '해당 지역', '구분']
+        header = ['특보 유형', '발표 시각', '지역', '발효 시각', '해당 지역', '구분', '시각 차이']
 
         excel_file_manager = ExcelFileManager()
         file_name = weather_type + '_' + start_day + '_' + end_day + '.xlsx'
@@ -33,12 +33,15 @@ class Application:
         kma.setting()
         kma.login_loof(kma_id=self.kma_id, kma_pass=self.kma_pass)
 
+        # 다운로드 받을 경로 비우기
+        file_manager = ExcelFileManager()
+        file_manager.directory_empty(self.download_path)
+
         # 파일 다운로드
         kma.file_download(weather_type, start_day, end_day)
         kma.quit()
 
         # 다운로드 받은 파일 읽기
-        file_manager = ExcelFileManager()
         full_file_path = file_manager.file_name_read(self.download_path)
         raw_data = file_manager.file_read(full_file_path)
 

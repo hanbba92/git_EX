@@ -117,15 +117,19 @@ class KMA:
                 newsflash_type = fermentation_time_list[i].split(':')[0].split()[1]
                 # 해당 지역
                 concerned_area = concerned_area_list[i].split(':')[1].strip()
-                # 비고
-                note = fermentation_time_list[i].split(':')[0].split()[2].strip()
-                # print(newflash_type, announcement_time, area, fermentation_time, concerned_area, note)
+                # 구분
+                sortation = fermentation_time_list[i].split(':')[0].split()[2].strip()
+
+                # 시각 차이
+                time_difference = datetime.strptime(fermentation_time, '%Y-%m-%d %H:%M') - datetime.strptime(
+                    announcement_time, '%Y-%m-%d %H:%M')
                 data.append(newsflash_type)
                 data.append(announcement_time)
                 data.append(area)
                 data.append(fermentation_time)
                 data.append(concerned_area)
-                data.append(note)
+                data.append(sortation)
+                data.append(time_difference)
                 data_list.append(data)
         return data_list
 
