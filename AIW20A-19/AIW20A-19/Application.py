@@ -27,8 +27,7 @@ class Application(object):
         result = tmp_925 + cape + cin
         result = np.where(result == 3, 1, 0)
 
-        task_file_manager.write('/Users/user/Desktop/netcdf/aiw_task19_input_20220207.nc',
-                                [data['latitude'], data['longitude'], result], task_number=self.output_tasks)
+        task_file_manager.write(self.input_file, [data['latitude'], data['longitude'], result], task_number=self.output_tasks)
         print(result)
         common.logger.info("Creating Output Data..")
 
