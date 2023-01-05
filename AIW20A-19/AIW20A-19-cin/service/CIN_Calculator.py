@@ -13,7 +13,7 @@ class CIN_Calculator(object):
         # compute parcel temperature. 숫자는 원하는 기층의 인덱스. p[2:],T[2],Td[2]가 되면 925기준으로 계산한 prof나옴
         prof = parcel_profile(p, T[2], Td[2]).to('degC')
         # calculate CAPE/CIN
-        cin = cape_cin(p, T, Td, prof)
+        cape, cin = cape_cin(p, T, Td, prof)
 
         return cin
 
