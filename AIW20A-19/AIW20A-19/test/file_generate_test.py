@@ -6,15 +6,17 @@ from netCDF4 import Dataset
 from aiw_task_cm.file.file_manager_factory import FileManagerFactory
 
 class FileGenerateTest(unittest.TestCase):
-    def __init__(self):
+    def setUp(self) -> None:
+        super().setUp()
         self.fm = FileManagerFactory().get_instance('netcdf')
 
     def read(self, input_file):
         data = {
-            'tmp_925': self.read_task_values(input_file, '/TMP_925mb'),
-            'cape': self.read_task_values(input_file, '/CAPE_atmoscol'),
-            'latitude': self.read_task_values(input_file, '/latitude'),
-            'longitude': self.read_task_values(input_file, '/longitude')
+            'tmp_925': self.read_task_values(input_file, 'FLOWDATA/19/values'),
+            'cape': self.read_task_values(input_file, 'FLOWDATA/19/values'),
+            'cin': self.read_task_values(input_file, 'FLOWDATA/19/values'),
+            'latitude': self.read_task_values(input_file, 'INPUTDATA/latitude'),
+            'longitude': self.read_task_values(input_file, 'INPUTDATA/longitude')
         }
         return data
 
@@ -24,19 +26,20 @@ class FileGenerateTest(unittest.TestCase):
         return task2_values
 
     def test_file_generate(self):
-        titles = ['tmp_925', 'cape']  # 사용할 데이터 목록
+        titles = ['tmp_925', 'cape' , 'cin']  # 사용할 데이터 목록
 
         ds = Dataset('/Users/user/Desktop/netcdf/aiw_task19_input_20220207.nc', 'w', format="NETCDF4")  # 새 nc파일 생성
 
-        data1 = self.read('/Users/user/Desktop/gdaps/g128_v070_ergl_pres_h000.2022020700.nc')  # 등압면 데이터 -> tmp_925
-        data2 = self.read('/Users/user/Desktop/gdaps/g128_v070_ergl_unis_h000.2022020700.nc')  # 단일면 데이터 -> cape
+        data1 = self.read('/Users/user/Desktop/netcdf/aiw_task19_tmp_input_20220207.nc')
+        data2 = self.read('/Users/user/Desktop/netcdf/aiw_task19_cape_input_20220207.nc')
+        data3 = self.read('/Users/user/Desktop/netcdf/aiw_task19_cin_input_20220207.nc')
 
-        lats = np.array(data1['latitude'])[1100:1500]
-        lons = np.array(data1['longitude'])[700:1100]  # 사용할 범위 지정
+        lats = np.array(data1['latitude'])
+        lons = np.array(data1['longitude'])  # 사용할 범위 지정
 
         # 차원 생성
-        ds.createDimension('latitude', np.array(data1[titles[0]])[0][1100:1500, 700:1100].shape[0])
-        ds.createDimension('longitude', np.array(data1[titles[0]])[0][1100:1500, 700:1100].shape[1])
+        ds.createDimension('latitude', np.array(data1['tmp_925'])[:, :].shape[0])
+        ds.createDimension('longitude', np.array(data1['tmp_925'])[:, :].shape[1])
 
         # 데이터 저장할 변수 공간 생성
         ds.createVariable('INPUTDATA/latitude', 'f8', 'latitude')
@@ -46,12 +49,16 @@ class FileGenerateTest(unittest.TestCase):
         ds['INPUTDATA/latitude'][:] = lats
         ds['INPUTDATA/longitude'][:] = lons
 
-        values = np.array(data1['tmp_925'])[0][1100:1500, 700:1100]
+        values = np.array(data1['tmp_925'])[:, :]
         ds.createVariable('INPUTDATA/' + 'tmp_925' + '/h000', float, ('latitude', 'longitude'))  # 변수공간 생성
         ds['INPUTDATA/' + 'tmp_925' + '/h000'][:, :] = values
 
-        values = np.array(data2['cape'])[0][1100:1500, 700:1100]
-        ds.createVariable('INPUTDATA/' + 'cape' + '/h000', float, ('latitude', 'longitude'))  # 변수공간 생성
+        values = np.array(data2['cape'])[:, :]
+        ds.createVariable('INPUTDATA/' + 'cape' + '/h000', float, ('latitude', 'longitude'))
         ds['INPUTDATA/' + 'cape' + '/h000'][:, :] = values
+
+        values = np.array(data3['cin'])[:, :]
+        ds.createVariable('INPUTDATA/' + 'cin' + '/h000', float, ('latitude', 'longitude'))
+        ds['INPUTDATA/' + 'cin' + '/h000'][:, :] = values
 
         ds.close()

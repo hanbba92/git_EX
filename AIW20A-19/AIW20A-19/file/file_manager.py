@@ -19,9 +19,9 @@ class FileReader(object):
 
     def read(self, input_file):
         data = {
-            'tmp_925': self.read_task_values(input_file, 'FLOWDATA/19/values'),
-            'cape': self.read_task_values(input_file, 'FLOWDATA/19/values'),
-            'cin': self.read_task_values(input_file, 'FLOWDATA/19/values'),
+            'tmp_925': self.read_task_values(input_file, 'INPUTDATA/tmp_925/h000'),
+            'cape': self.read_task_values(input_file, 'INPUTDATA/cape/h000'),
+            'cin': self.read_task_values(input_file, 'INPUTDATA/cin/h000'),
             'longitude': self.read_task_values(input_file, 'INPUTDATA/longitude'),
             'latitude': self.read_task_values(input_file, 'INPUTDATA/latitude')
         }
