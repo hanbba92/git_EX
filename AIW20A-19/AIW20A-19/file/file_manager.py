@@ -29,5 +29,5 @@ class FileReader(object):
 
     def read_task_values(self, input_file, data_path):
         path = data_path
-        task2_values, meta = self.fm.read(input_file, data_path=path)
-        return task2_values
+        data, meta = self.fm.read(input_file, data_path=path)
+        return data
