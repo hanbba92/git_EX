@@ -27,22 +27,18 @@ class CIN_Calculator(object):
         :param rh_nnn: nnn(hPa)에서의 상대습도
         :return: CIN 계산 결과
         '''
-        tmp_name_list = [tmp_1000, tmp_950, tmp_925, tmp_850, tmp_700, tmp_600]
-        rh_name_list = [rh_1000, rh_950, rh_925, rh_850, rh_700, rh_600]
+        tmp_name_list = np.stack((tmp_1000, tmp_950, tmp_925, tmp_850, tmp_700, tmp_600))
+        rh_name_list = np.stack((rh_1000, rh_950, rh_925, rh_850, rh_700, rh_600))
         p_list = [1000., 950., 925., 850., 700., 600.]
 
         CIN_result = []
-        for i in range(0, 400):
+        for i in range(0, tmp_1000.shape[1]):
             CIN = []
-            for j in range(0, 400):
-                T_list = []
-                rh_list = []
+            for j in range(0,  tmp_1000.shape[0]):
                 #한 좌표에서의 기압별 기온 리스트와 상대습도 리스트 생성
-                for t, r in zip(tmp_name_list, rh_name_list):
-                    T_list.append(t[i][j] - 273.15)
-                    rh_list.append(r[i][j])
-                cin = self.get_cin(p_list, T_list, rh_list)
-                cin = float(str(cin).split("joule")[0])  #'joule/kilogram'유닛을 그냥 list에 넣으면 np.array로 변환할 수 없음. float로 변환
+                T_list = tmp_name_list[:, i, j] - 273.15
+                rh_list = rh_name_list[:, i, j]
+                cin = self.get_cin(p_list, T_list, rh_list).m  # cin.m으로 유닛에서 np.float64값 얻음
                 CIN.append(cin)
             CIN_result.append(CIN)
         CIN_result = np.array(CIN_result)
