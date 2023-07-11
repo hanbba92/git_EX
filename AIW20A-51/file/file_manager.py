@@ -11,8 +11,8 @@ class FileManager(object):
     def __init__(self):
         self.fm = FileManagerFactory().get_instance('netcdf')
 
-    def read(self, input_file, input_task):
-        return FileReader(self.fm).read(input_file, input_task)
+    def read(self, input_file, DZDT, UGRD, VGRD):
+        return FileReader(self.fm).read(input_file, DZDT, UGRD, VGRD)
 
     def write(self, input_file, result, **kwargs):
         task_number = kwargs.get('task_number', '')
@@ -24,9 +24,11 @@ class FileReader(object):
     def __init__(self, fm):
         self.fm = fm
 
-    def read(self, input_file, input_task):
+    def read(self, input_file, DZDT, UGRD, VGRD):
         data = {
-            'value': self.read_task_values(input_file, input_task),
+            'DZDT': self.read_task_values(input_file, DZDT),
+            'UGRD': self.read_task_values(input_file, UGRD),
+            'VGRD': self.read_task_values(input_file, VGRD),
             'longitude': self.read_task_values(input_file, 'INPUTDATA/longitude'),
             'latitude': self.read_task_values(input_file, 'INPUTDATA/latitude'),
             'times': self.read_task_values(input_file, 'INPUTDATA/times'),
