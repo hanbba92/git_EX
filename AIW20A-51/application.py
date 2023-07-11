@@ -16,17 +16,21 @@ class Application(object):
     def run(self):
         task_file_manager = FileManager()
         inp = task_file_manager.read(self.input_file, self.DZDT, self.UGRD, self.VGRD)
+        # 각 바람성분을 하나로 합침.
         DZDT = inp['DZDT']
         UGRD = inp['UGRD']
         VGRD = inp['VGRD']
         wind = np.vstack((DZDT, UGRD, VGRD))
+        # NaN 값이 매우 크게 들어가므로 이상치 왼쪽의 값을 reflect 한다.
         for i in range (wind.shape[0]):
             for j in range (wind.shape[1]):
                 for k in range (wind.shape[2]):
                     if(wind[i, j, k] > 1000): wind[i, j, k]=wind[i, j, k-1]
 
         print(wind.shape)
+        # edge detection을 위한 라플라시안 필터
         laplacian_filter = np.array([[0, -1, 0], [-1, 4, -1], [0, -1, 0]])
+        # 벡터로 구성된 2d 격자에 convolution 필터 적용
         result = vector_conv_sameshape(wind, laplacian_filter)
 
 
