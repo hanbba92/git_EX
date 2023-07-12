@@ -12,10 +12,10 @@ import aiw_task_cm.common.initiator as common
 
 class Application(object):
 
-    def __init__(self, input_file, task_number, input_task, op, base, workflow_id):
+    def __init__(self, input_file, input_task, op, base, workflow_id):
         self.input_file = input_file
-        self.task_number = task_number
-        self.input_task = input_task
+        self.task_number = input_task
+        self.input_task = 'FLOWDATA/'+input_task
         self.op = op
         self.base = base
         self.workflow_id = workflow_id
@@ -41,20 +41,19 @@ class Application(object):
         print(result.shape)
         print(result[:, 180, 267])
 
-        task_file_manager.write(self.input_file, [data['latitude'], data['longitude'], result], task_number=self.task_number)
+        task_file_manager.write(self.input_file, [data['latitude'], data['longitude'], result], task_number=self.task_number+'_masking_25')
 
 def main():
     workflow_id = sys.argv[1]
     input_file = sys.argv[2]
-    task_number = sys.argv[3]
-    input_task = sys.argv[4]
-    op = sys.argv[5]
-    base = sys.argv[6]
+    input_task = sys.argv[3]
+    op = sys.argv[4]
+    base = sys.argv[5]
 
-    common.init('aiw-task-hr-' + task_number, workflow_id)
+    common.init('aiw-task-hr-' + input_task, workflow_id)
     result = 0
     try:
-        app = Application(input_file, task_number, input_task, op, base, workflow_id)
+        app = Application(input_file, input_task, op, base, workflow_id)
         app.run()
     except Exception as e:
         result = 1
