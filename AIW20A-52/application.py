@@ -20,16 +20,12 @@ class Application(object):
         for i in range (value.shape[0]):
             for j in range (value.shape[1]):
                     if(value[i, j] > 10000): value[i, j]=value[i, j-1]
-        value = gaussian_filter(value, sigma=2)
-        # edge detection을 위한 라플라시안 필터
-        sobel_filter_v = np.array([[1,4,6,4,1], [2,8,12,8,2], [0,0,0,0,0], [-2, -8, -12, -8, -2], [-1, -4, -6, -4, -1]])
-        sobel_filter_h = sobel_filter_v.T
+        value = gaussian_filter(value, sigma=1)
+        med = np.median(value)
+        stddev = np.std(value)/6
 
-        # 벡터로 구성된 2d 격자에 convolution 필터 적용
-        result_v = conv_sameshape(value, sobel_filter_v) **2
-        result_h = conv_sameshape(value, sobel_filter_h) **2
-        result = result_h + result_v
-
+        mask = np.logical_and(value >= med-stddev, value <= med+stddev)
+        result = np.where(mask,1,0)
 
 
         task_file_manager.write(self.input_file, [inp['latitude'], inp['longitude'], result],
