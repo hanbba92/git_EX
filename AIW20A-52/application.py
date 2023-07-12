@@ -21,11 +21,12 @@ class Application(object):
             for j in range (value.shape[1]):
                     if(value[i, j] > 10000): value[i, j]=value[i, j-1]
         value = gaussian_filter(value, sigma=1)
-        med = np.median(value)
-        stddev = np.std(value)/6
+        median = np.median(value)
+        stddev = np.std(value)
 
-        mask = np.logical_and(value >= med-stddev, value <= med+stddev)
-        result = np.where(mask,1,0)
+        result = 1 / (np.absolute(value - median / stddev)+ 1e-9)
+        result = (result - np.min(result)) / (np.max(result) - np.min(result))
+
 
 
         task_file_manager.write(self.input_file, [inp['latitude'], inp['longitude'], result],
