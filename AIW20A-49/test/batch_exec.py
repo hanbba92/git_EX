@@ -3,11 +3,11 @@ import subprocess
 
 interpreter_dir = 'C:/Users/user/Documents/project/aiw-task-cm/venv/Scripts/python.exe'
 code_dir = '../application.py'
-nc_folder = 'D:/nc_inuse/nonfront'
+nc_folder = 'D:/nc_inuse/front'
 argv1 = 'flow1234'
 argv3 = 'FLOWDATA/900-600'
-argv4 = 'FLOWDATA/51_500'
-argv5 = '49'
+argv4 = 'FLOWDATA/52_850_3'
+argv5 = '49_4'
 
 
 

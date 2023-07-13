@@ -15,17 +15,20 @@ class Application(object):
     def run(self):
         task_file_manager = FileManager()
         inp = task_file_manager.read(self.input_file, self.input_task)
-        # 각 바람성분을 하나로 합침.
         value = inp['value'][0]
         for i in range (value.shape[0]):
             for j in range (value.shape[1]):
                     if(value[i, j] > 10000): value[i, j]=value[i, j-1]
         value = gaussian_filter(value, sigma=1)
-        median = np.median(value)
-        stddev = np.std(value)
+        median = (np.max(value) + np.min(value))/2
+        print(median)
 
-        result = 1 / (np.absolute(value - median / stddev)+ 1e-9)
-        result = (result - np.min(result)) / (np.max(result) - np.min(result))
+        result = np.absolute(value - median)
+        result = np.max(result) - result
+        result = result ** 2
+        result = (result-np.mean(result))/np.std(result) +3
+
+
 
 
 

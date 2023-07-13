@@ -6,7 +6,7 @@ import os
 
 front_dir = 'D:/nc_inuse/front'
 nonfront_dir = 'D:/nc_inuse/nonfront'
-variable_name = 'FLOWDATA/49'
+variable_name = 'FLOWDATA/49_2'
 
 def access_values(fm, file_dir, var_name):
     task_var, _ = fm.read(file_dir, data_path=var_name)

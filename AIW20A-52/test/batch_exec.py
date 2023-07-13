@@ -3,10 +3,10 @@ import subprocess
 
 interpreter_dir = 'C:/Users/user/Documents/project/aiw-task-cm/venv/Scripts/python.exe'
 code_dir = '../application.py'
-nc_folder = 'D:/nc_inuse/nonfront'
+nc_folder = 'D:/nc_inuse/front'
 argv1 = 'flow1234'
 argv3 = 'INPUTDATA/TMP_850mb'
-argv4 = '52_850'
+argv4 = '52_850_3'
 
 
 
