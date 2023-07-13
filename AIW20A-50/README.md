@@ -2,7 +2,7 @@
 ## 목적
 vertical wind shear를 검출한다.
 ## 개요
-각 좌표마다 vertical wind shear를 검출한다. 구한다.
+각 좌표마다 vertical wind shear를 구한다.
 ## 입력 매개변수
 - workflow_id: 워크플로우 아이디 (아무거나 넣으면 됨).
 - input_file: 입/출력할 netcdf 파일 경로
@@ -11,7 +11,7 @@ vertical wind shear를 검출한다.
 
 
 ## 출력
-각 좌표마다 convolution으로 주변 바람 벡터와의 차이의 L2 Norm 을 구한다.
+각 좌표마다 vertical wind shear를 구한다.
 
 
 ## 실행 방법 예시
