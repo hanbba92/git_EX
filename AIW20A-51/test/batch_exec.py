@@ -6,7 +6,7 @@ code_dir = '../application.py'
 nc_folder = 'D:/nc_inuse/nonfront'
 argv1 = 'flow1234'
 argv3 = 'INPUTDATA/TMP_850mb'
-argv4 = '52_850_5'
+argv4 = '52_850'
 
 
 

@@ -18,7 +18,7 @@ class Application(object):
         # 각 바람성분을 하나로 합침.
         wind_shear = inp['wind_shear'][0]
         near_median = inp['near_median'][0]
-        score = np.sum(wind_shear ** 2 * near_median)
+        score = np.sum(wind_shear * near_median)
         result = np.full_like(inp['latitude'], score)
 
         task_file_manager.write(self.input_file, [inp['latitude'], inp['longitude'], result],

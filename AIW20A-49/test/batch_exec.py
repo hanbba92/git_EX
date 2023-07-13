@@ -5,9 +5,9 @@ interpreter_dir = 'C:/Users/user/Documents/project/aiw-task-cm/venv/Scripts/pyth
 code_dir = '../application.py'
 nc_folder = 'D:/nc_inuse/front'
 argv1 = 'flow1234'
-argv3 = 'FLOWDATA/900-600'
-argv4 = 'FLOWDATA/52_850_3'
-argv5 = '49_4'
+argv3 = 'FLOWDATA/4000_2'
+argv4 = 'FLOWDATA/52_850_5'
+argv5 = '49_9'
 
 
 

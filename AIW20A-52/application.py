@@ -21,16 +21,10 @@ class Application(object):
                     if(value[i, j] > 10000): value[i, j]=value[i, j-1]
         value = gaussian_filter(value, sigma=1)
         median = (np.max(value) + np.min(value))/2
-        print(median)
-
         result = np.absolute(value - median)
         result = np.max(result) - result
         result = result ** 2
-        result = (result-np.mean(result))/np.std(result) +3
-
-
-
-
+        result = (result-np.mean(result))/np.std(result) +2
 
         task_file_manager.write(self.input_file, [inp['latitude'], inp['longitude'], result],
                                 task_number=self.output_task)

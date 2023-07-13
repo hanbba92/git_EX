@@ -1,4 +1,4 @@
-# AIW20A-49-2
+# AIW20A-51
 ## 목적
 horizontal wind shear를 검출한다.
 ## 개요
