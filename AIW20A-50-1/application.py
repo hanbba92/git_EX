@@ -41,7 +41,7 @@ class Application(object):
         print(result.shape)
         print(result[:, 180, 267])
 
-        task_file_manager.write(self.input_file, [data['latitude'], data['longitude'], result], task_number=self.task_number+'_masking_25')
+        task_file_manager.write(self.input_file, [data['latitude'], data['longitude'], result], task_number=self.task_number+'_masking_'+self.base)
 
 def main():
     workflow_id = sys.argv[1]
