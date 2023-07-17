@@ -13,23 +13,18 @@ def access_values(fm, file_dir, var_name):
     return task_var
 
 
-def hist_plot():
-    front = np.array([])
-    nonfront= np.array([])
+def see_values():
     fm = FileManagerFactory().get_instance('netcdf')
+    print('===============front===============')
     for filename in os.listdir(front_dir):
         file_path = os.path.join(front_dir, filename)
-        var = access_values(fm, file_path, variable_name)
-        front = np.append(front, var[0,0])
+        var = access_values(fm, file_path, variable_name)[0,0] / 1e9
+        print(filename, var)
+    print('===============nonfront===============')
     for filename in os.listdir(nonfront_dir):
         file_path = os.path.join(nonfront_dir, filename)
-        var = access_values(fm, file_path, variable_name)
-        nonfront = np.append(nonfront, var[0,0])
-    bin_edge = np.linspace(np.min(nonfront), np.max(front), 50)
-    plt.hist(front, label='front', alpha=0.5, histtype='bar', bins=bin_edge)
-    plt.hist(nonfront, label='nonfront',alpha=0.5, histtype='bar', bins=bin_edge)
-    plt.legend()
-    plt.show()
+        var = access_values(fm, file_path, variable_name)[0,0] /1e9
+        print(filename, var)
 
 
-hist_plot()
+see_values()
