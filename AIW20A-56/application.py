@@ -23,7 +23,7 @@ class Application(object):
         wind_speed[np.isnan(wind_speed)] = np.nanmedian(wind_speed)
         # 최소 풍속 조건 체크
         wind_condition = np.zeros_like(wind_speed, dtype=bool)
-        wind_condition[wind_speed > 25] = True
+        wind_condition[wind_speed > 15] = True
         # 하층 제트 축의 위쪽을 True로 바꾸는 부분
         is_lat_has_axis = np.max(LLJ_axis, axis=1)
         upper_axis_condition = np.zeros_like(LLJ_axis, dtype=bool)

@@ -9,6 +9,6 @@
 - output_task: 출력할 데이터 경로
 
 ## 출력
-제트축의 위에있고, 풍속이 15이상인 위치를 A 또는 B로 삼고 1로 표시한다.
+제트축의 위에있고, 풍속이 15kts, 즉 7.71667m/s이상인 위치를 A 또는 B로 삼고 1로 표시한다.
 ## 실행 방법 예시
 python3 application.py flow1234 D:/nc_inuse/2021070312gb2.nc FLOWDATA/47-1 FLOWDATA/3020 task56
