@@ -36,27 +36,23 @@ def ArmijoLineSearch(f,surf, xk, pk, gfk, phi0, alpha0, rho=0.5, c1=1e-4):
         """
     deriphi0 = np.dot(gfk, pk)
     q=xk+alpha0*pk
-    if q[0] < 0 or q[1] < 0 or q[0] > 1 or q[1] >1:
+
+    if q[0]<0 or q[1] > 1 or q[1] < 0 or q[1] > 0:
         return alpha0, phi0
-    print(q)
     tan=operations.tangent(surf,list(q))
     phi_a0 = tan[0][2]
-    prev_a0=phi_a0
-    print(f"iy= {tan[0][0]}, ix = {tan[0][1]}, alpha0 = {alpha0} deriphi0 = {deriphi0}, pk= {pk}, phi_a0 = {phi_a0}, phi0= {phi0}")
-    count=0
+    #print(f"iy= {tan[0][0]}, ix = {tan[0][1]}, alpha0 = {alpha0} deriphi0 = {deriphi0}, pk= {pk}, phi_a0 = {phi_a0}, phi0= {phi0}")
+    print(f"Armijo start, iy= {tan[0][0]}, ix = {tan[0][1]}, alpha0 = {alpha0} deriphi0 = {deriphi0}, pk= {pk}, phi_a0 = {phi_a0}, phi0= {phi0}")
     while not abs(phi_a0) <= abs(phi0 + c1*alpha0*deriphi0):
         q = xk + alpha0 * pk
-        if q[0] < 0 or q[1] < 0 or q[0] > 1 or q[1] > 1:
-            break
         alpha0=alpha0*rho
 
         tan=operations.tangent(surf,list(q))
         phi_a0=tan[0][2]
-        if phi_a0 == prev_a0:
-            break
         prev_a0=phi_a0
 
-        print(f"alpha0 = {alpha0} deriphi0 = {deriphi0}, pk= {pk}, phi_a0 = {phi_a0}, phi0= {phi0}")
+        #print(f"alpha0 = {alpha0} deriphi0 = {deriphi0}, pk= {pk}, phi_a0 = {phi_a0}, phi0= {phi0}")
 
 
+    print(f"Armijo done, alpha is {alpha0}\n")
     return alpha0, phi_a0

@@ -6,7 +6,7 @@ from ArmijoLineSearch import *
 import math
 from geomdl import operations
 
-def GradientDescent(f,surf, init, alpha=1, tol=1e-3, max_iter = 500):
+def GradientDescent(f,surf, init, alpha=1, tol=1e-4, max_iter = 1000):
     """Gradient descent method for unconstraint optimization poblem.
     given a starting point x in R^n,
     repeat
@@ -39,44 +39,46 @@ def GradientDescent(f,surf, init, alpha=1, tol=1e-3, max_iter = 500):
     """
     # initialize x, f(x), and f'(x)
     xk = init
-    print('start',list(xk))
+
     tan=operations.tangent(surf,list(xk))
 
     fk = tan[0][2]
-    print(fk)
+
     #f_threshold=np.median(f)-np.std(f)*0.5
     #print(np.std(f), np.median(f), f_threshold)
-    gfk = np.array([tan[1][2],tan[2][1]])
+    gfk = np.array([tan[1][2],tan[2][2]])
     gfk_norm = np.linalg.norm(gfk)
 
-    #print('gfk_norm: ',gfk_norm)
+
     #initialize number of steps, save x and f(x)
     num_iter = 0
     curve_x = [xk]
     curve_y = [fk]
     print('initial condition: y = {:.4f}, x = {} \n'.format(fk,xk))
     #take steps
-    while gfk_norm-1 > tol and num_iter < max_iter:
+    while gfk_norm > tol and num_iter < max_iter:
         #determine direction
         pk = -gfk
         # print(alpha*pk)
-        print(xk)
+
 
         alpha,fk=ArmijoLineSearch(f,surf,xk,pk,gfk,fk,alpha0=alpha)
         xk=xk+alpha*pk
-        if xk[0] < 0 or xk[1] < 0 or xk[0] > 1 or xk[1] >1:
-            curve_x.append([int(tan[0][0]), int(tan[0][1])])
-            curve_y.append(fk)
-            return 0, 0, 0
+        # if xk[0] < 0 or xk[1] < 0 or xk[0] > 1 or xk[1] >1:
+        #     curve_x.append([int(tan[0][0]), int(tan[0][1])])
+        #     curve_y.append(fk)
+        #     return 0, 0, 0
+        if xk[0] < 0 or xk[0] > 1 or xk[1] < 0 or xk[1] > 1:
+            return 0, np.array(curve_x), np.array(curve_y)
         tan=operations.tangent(surf,list(xk))
-        gfk = np.array([tan[1][2],tan[2][1]])
+        gfk = np.array([tan[1][2],tan[2][2]])
         gfk_norm = np.linalg.norm(gfk)
         # increase number of steps by 1, save new x and f(x)
         num_iter += 1
         curve_x.append([int(tan[0][0]),int(tan[0][1])])
         curve_y.append(fk)
 
-        print('Iteration: {} \t y = {:.4f}. x = {}, gradient = {:4f}'.format(num_iter, fk, xk, gfk_norm))
+        #print('Iteration: {} \t y = {:.4f}. x = {}, gradient = {:4f}'.format(num_iter, fk, xk, gfk_norm))
 
 
     #print results

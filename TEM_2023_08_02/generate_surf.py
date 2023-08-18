@@ -7,6 +7,7 @@ from geomdl import BSpline
 from geomdl import control_points
 import sys
 import numpy as np
+from geomdl.visualization import VisMPL as mpl
 
 def generate_surf(u,v,p):
 
@@ -47,9 +48,17 @@ def generate_surf(u,v,p):
     surf.knotvector_v = knot_v
 
     # Set evaluation delta
-    surf.delta = 0.001
+    surf.delta = 0.005
 
     # Evaluate surface points
     surf.evaluate()
+
+    # from matplotlib import cm
+    #
+    # # Plot the control point grid and the evaluated surface
+    # vis_comp = mpl.VisSurface()
+    # # vis_comp = vis.VisSurface()
+    # surf.vis = vis_comp
+    # surf.render(colormap=cm.cool)
 
     return surf

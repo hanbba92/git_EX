@@ -78,17 +78,17 @@ class Application(object):
                             low.append([int(iy),int(ix)])
 
                             result[i,int(iy),int(ix)]=-1
-
+                    total+=1
                     ans, xr,yr=self.Grad(p_reversed, surf_reversed, np.array([y,x]), self.initial_alpha)
 
 
                     if ans:
                         iy,ix=xr[-1]
-                        if yr[-1] >= prmsl_threshold_high:
+                        if yr[-1] <= prmsl_threshold_high*-1:
                             result[i,int(iy),int(ix)]=1
                             high.append([int(iy),int(ix)])
                     total+=1
-                    print(f'{total}/100 done')
+                    print(f'{total}/200 done')
             self.Plot(self.input_data_path,low,high,i)
 
 

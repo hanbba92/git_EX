@@ -9,7 +9,7 @@ from matplotlib.cm import get_cmap
 import io
 import numpy as np
 import os
-output_folder='D:/apihub/gradient_png'
+output_folder='D:/apihub/gradient_descent_png'
 if not os.path.exists(output_folder):
     os.mkdir(output_folder)
 def plot(input_file_path,low,high,hour):
@@ -83,6 +83,7 @@ def plot(input_file_path,low,high,hour):
     #
     plt.tight_layout()
     plt.savefig('{}.png'.format(output_folder + '/' + input_file_path[-13:-3]+'h%3.3d'%(hour*3)), format='png')
+    print(f"{output_folder + '/' +input_file_path[-13:-3]+'h%3.3d'%(hour*3)}.png saved")
     #plt.show()
     nc.close()
     #plt.close('all')
